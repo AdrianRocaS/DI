@@ -44,7 +44,7 @@ A continuación comentaremos las principales características de esta aplicació
 - `Descubrir`: Te muestra las comunidades más relevantes en ese momento en diferentes categorías, tales como: juegos, música, entretenimiento, ciencia y tecnología, educación y por último, centros de estudiantes. También podrás utilizar el buscador para encontrar la comunidad concreta que te interese.
 
 
-## Información técnica
+## :wrench: Información técnica
 
 ### *Tecnologías empleadas*
 
