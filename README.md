@@ -1,14 +1,11 @@
 # ***DISCORD***
-<p align="center">
-  
+
 ![discord-logo-discord-icon-transparent-free-png](https://github.com/user-attachments/assets/0852b2f4-7627-4d16-9c62-cdcd024900e9)
-  
-</p>
 
 ![Badge en Desarollo](https://img.shields.io/badge/LANZAMIENTO-13/05/2015-blue)
 ![Badge en Desarollo](https://img.shields.io/badge/VERSION-03/09/2025-blue)
-![Badge en Desarollo](https://img.shields.io/badge/ESTADO-EN%20ACTIVO-green)
 
+![Badge en Desarollo](https://img.shields.io/badge/ESTADO-EN%20ACTIVO-green)
 
 ## Índice
 * [Descripción del proyecto](#descripción-del-proyecto)
