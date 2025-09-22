@@ -5,16 +5,13 @@
 ![Badge en Desarollo](https://img.shields.io/badge/VERSION-03/09/2025-blue)
 ![Badge en Desarollo](https://img.shields.io/badge/LANZAMIENTO-13/05/2015-blue)
 ## Índice
-* [Título e imagen de portada](#Título-e-imagen-de-portada)
-* [Insignias](#insignias)
-* [Índice](#índice)
 * [Descripción del proyecto](#descripción-del-proyecto)
-* [Estado del proyecto](#Estado-del-proyecto)
-* [Características de la aplicación y demostración](#Características-de-la-aplicación-y-demostración)
-* [Acceso al proyecto](#acceso-proyecto)
-* [Tecnologías utilizadas](#tecnologías-utilizadas)
-* [Personas Contribuyentes](#personas-contribuyentes)
-* [Personas-Desarrolladores del Proyecto](#personas-desarrolladores)
+* [Estado de la aplicación](#estado-de-la-aplicación)
+* [Características de la aplicación y demostración](#características-de-la-aplicación-y-demostración)
+* [Funcionalidades de la aplicación](#funcionalidades-de-la-aplicación)
+* [Información técnica](información-técnica)
+* [Plataformas](#plataformas)
+
 * [Licencia](#licencia)
 * [Conclusión](#conclusión)
 
@@ -39,7 +36,7 @@ A continuación comentaremos las principales características de esta aplicació
 <img width="1919" height="1017" alt="image" src="https://github.com/user-attachments/assets/347d8b07-e869-44c2-a423-7761a523e9e5" />
 
 
-## :hammer:Funcionalidades del proyecto
+## :hammer:Funcionalidades de la aplicación
 - `Mensajes directos`: Podremos tener conversaciones, llamadas y videollamadas privadas con otros usuarios.
    - `Crear MD`: Nos permite crear un chat de grupo con nuestros amigos.
 - `Añadir un servidor`: Podremos agregar servidores de comunidad a nuestra aplicación para interactuar con otros usuarios.
