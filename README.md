@@ -13,11 +13,11 @@
 * - [Tecnologías Empleadas](#tecnologías-empleadas)
 * - [Plataformas](#plataformas)
 
-## :bookmark_tabs:Descripción del proyecto
+## :bookmark_tabs: Descripción del proyecto
 
 Discord, lanzada el 13 de mayo de 2015, es una aplicación creada principalmente para facilitar la comunicación por voz, video y texto entre usuarios pertenecientes a diferentes comunidades en internet.
 
-## :bookmark:Estado de la aplicación
+## :bookmark: Estado de la aplicación
 
 :construction: Finalizada. Recibiendo actualizaciones periódicas para mejorar la experiencia del usuario. :construction:
 
@@ -34,7 +34,7 @@ A continuación comentaremos las principales características de esta aplicació
 <img width="1919" height="1017" alt="image" src="https://github.com/user-attachments/assets/347d8b07-e869-44c2-a423-7761a523e9e5" />
 
 
-## :hammer:Funcionalidades de la aplicación
+## :hammer: Funcionalidades de la aplicación
 - `Mensajes directos`: Podremos tener conversaciones, llamadas y videollamadas privadas con otros usuarios.
    - `Crear MD`: Nos permite crear un chat de grupo con nuestros amigos.
 - `Añadir un servidor`: Podremos agregar servidores de comunidad a nuestra aplicación para interactuar con otros usuarios.
@@ -44,7 +44,7 @@ A continuación comentaremos las principales características de esta aplicació
 - `Descubrir`: Te muestra las comunidades más relevantes en ese momento en diferentes categorías, tales como: juegos, música, entretenimiento, ciencia y tecnología, educación y por último, centros de estudiantes. También podrás utilizar el buscador para encontrar la comunidad concreta que te interese.
 
 
-## :wrench:Información técnica
+## :wrench: Información técnica
 
 ### *Tecnologías empleadas*
 
