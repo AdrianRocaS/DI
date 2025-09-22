@@ -18,11 +18,11 @@
 * [Licencia](#licencia)
 * [Conclusión](#conclusión)
 
-## Descripción del proyecto
+## :bookmark_tabs:Descripción del proyecto
 
 Discord, lanzada el 13 de mayo de 2015, es una aplicación creada principalmente para facilitar la comunicación por voz, video y texto entre usuarios pertenecientes a diferentes comunidades en internet.
 
-## Estado del proyecto
+## :bookmark:Estado del proyecto
 
 :construction: Proyecto en construcción :construction:
 
@@ -36,3 +36,25 @@ Discord, lanzada el 13 de mayo de 2015, es una aplicación creada principalmente
    - `Comienza con una plantilla`: Discord dispone de diferentes ajustes predefinidos dependiendo de la temática hacia la que quieras orientar tu servidor, puede ser de gran utilidad.
    - `Únete a un servidor`: Si dispones de una invitación a un servidor ya creado, podrás activarla en esta opción.
 - `Descubrir`: Te muestra las comunidades más relevantes en ese momento en diferentes categorías, tales como: juegos, música, entretenimiento, ciencia y tecnología, educación y por último, centros de estudiantes. También podrás utilizar el buscador para encontrar la comunidad concreta que te interese.
+
+
+## :wrench:Información técnica
+
+### *Tecnologías empleadas*
+
+- JavaScript
+- Elixir
+- Rust
+- Python
+- C++
+
+### *Plataformas*
+
+- macOS
+- Linux
+- iOS
+- Android
+- Navegador web
+- Microsoft Windows
+- Xbox
+- PlayStation
