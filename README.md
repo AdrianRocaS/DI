@@ -22,11 +22,22 @@
 
 Discord, lanzada el 13 de mayo de 2015, es una aplicación creada principalmente para facilitar la comunicación por voz, video y texto entre usuarios pertenecientes a diferentes comunidades en internet.
 
-## :bookmark:Estado del proyecto
+## :bookmark:Estado de la aplicación
 
-:construction: Proyecto en construcción :construction:
+:construction: Finalizada. Recibiendo actualizaciones periódicas para mejorar la experiencia del usuario. :construction:
 
 ## Características de la aplicación y demostración
+
+A continuación comentaremos las principales características de esta aplicación: 
+
+- `Chats de texto y voz:` Canales para poder comunicarnos con el resto de usuarios de la comunidad. Dentro de los chats de voz podremos compartir pantalla y realizar videollamadas.
+- `Organización por roles:` Cada servidor tiene sus roles personalizados con los permisos concretos que se les asignen, dando más o menos poder a los usuarios en la comunidad.
+- `Bots:` Existe la posibilidad de agregar bots externos para mejorar la experiencia del servidor agregando nuevas funcionalidades, por ejemplo música en los canales de voz, o sistema de farmeo y estadísticas al estilo RPG entre otros.
+- `Personalizaciones:` Podemos crear emojis, audios, y otras cosas personalizadas para que los usuarios de la comunidad les puedan dar uso.
+- `Seguridad:` Con su sistema de roles ayuda a limitar los permisos de los usuarios en los servidores, a parte de contar con sistema de reportes, verificación para entrar a ciertas comunidades, etc.
+
+<img width="1919" height="1017" alt="image" src="https://github.com/user-attachments/assets/347d8b07-e869-44c2-a423-7761a523e9e5" />
+
 
 ## :hammer:Funcionalidades del proyecto
 - `Mensajes directos`: Podremos tener conversaciones, llamadas y videollamadas privadas con otros usuarios.
