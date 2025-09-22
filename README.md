@@ -10,8 +10,8 @@
 * [Características de la aplicación y demostración](#características-de-la-aplicación-y-demostración)
 * [Funcionalidades de la aplicación](#funcionalidades-de-la-aplicación)
 * [Información técnica](wrenchinformación-técnica)
-* - [Tecnologías Empleadas](#tecnologías-empleadas)
-* - [Plataformas](#plataformas)
+  - [Tecnologías Empleadas](#tecnologías-empleadas)
+  - [Plataformas](#plataformas)
 
 ## :bookmark_tabs: Descripción del proyecto
 
