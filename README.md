@@ -10,10 +10,8 @@
 * [Características de la aplicación y demostración](#características-de-la-aplicación-y-demostración)
 * [Funcionalidades de la aplicación](#funcionalidades-de-la-aplicación)
 * [Información técnica](información-técnica)
-* [Plataformas](#plataformas)
-
-* [Licencia](#licencia)
-* [Conclusión](#conclusión)
+* - [Tecnologías Empleadas](#tecnologías-empleadas)
+* - [Plataformas](#plataformas)
 
 ## :bookmark_tabs:Descripción del proyecto
 
