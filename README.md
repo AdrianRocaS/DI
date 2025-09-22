@@ -9,7 +9,7 @@
 * [Estado de la aplicación](#estado-de-la-aplicación)
 * [Características de la aplicación y demostración](#características-de-la-aplicación-y-demostración)
 * [Funcionalidades de la aplicación](#funcionalidades-de-la-aplicación)
-* [Información técnica](información-técnica)
+* [Información técnica](wrenchinformación-técnica)
 * - [Tecnologías Empleadas](#tecnologías-empleadas)
 * - [Plataformas](#plataformas)
 
