@@ -1,8 +1,10 @@
 import tkinter as tk
 
+#Mostrará un mensaje al pulsar un botón
 def mostrar_mensaje():
     label01.config(text="Mostrando mensaje")
 
+#Creación de la ventana
 root = tk.Tk()
 root.title("Ejercicio 2: Button")
 root.geometry("300x150")
@@ -16,9 +18,7 @@ button01.pack(pady=10)
 button02 = tk.Button(root, text="Salir", command=root.quit)
 button02.pack(pady=15)
 
-label01.pack()
-button01.pack()
-button02.pack()
 
+#Ejecutar el bucle principal
 root.mainloop()
 
