@@ -1,6 +1,4 @@
 import tkinter as tk
-from tkinter import Radiobutton
-
 
 #Cambia el color de fondo dependiendo del color seleccionado
 def cambiar_color():
