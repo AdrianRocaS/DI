@@ -15,6 +15,8 @@ public class CatalogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
+
+
         Button boton02 = findViewById(R.id.button);
         boton02.setOnClickListener(new View.OnClickListener() {
             @Override
