@@ -1,3 +1,4 @@
+import csv
 from dataclasses import dataclass
 from typing import List
 
@@ -14,16 +15,6 @@ class GestorUsuarios:
     def __init__(self):
         # Lista privada de usuarios
         self._usuarios: List[Usuario] = []
-        # Cargamos datos de ejemplo para fase 1
-        self._cargar_datos_de_ejemplo()
-
-
-    def _cargar_datos_de_ejemplo(self):
-        # Añade 3 usuarios de ejemplo
-        self._usuarios.append(Usuario("Ana", 28, "Femenino", "assets/avatar1.png"))
-        self._usuarios.append(Usuario("Luis", 34, "Masculino", "assets/avatar2.png"))
-        self._usuarios.append(Usuario("María", 22, "Femenino", "assets/avatar3.png"))
-
 
     def listar(self):
         # Devuelve la lista de usuarios
@@ -57,3 +48,32 @@ class GestorUsuarios:
             return True
         except IndexError:
             return False
+
+    # FASE 3
+    def guardar_csv(self, ruta_csv):
+        # Guarda los usuarios en 'usuarios.csv'
+        with open(ruta_csv, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["nombre", "edad", "genero", "avatar"])
+            for u in self._usuarios:
+                writer.writerow([u.nombre, u.edad, u.genero, u.avatar])
+
+    def cargar_csv(self, ruta_csv):
+        # Carga los usuarios de 'usuarios.csv'
+        try:
+            with open(ruta_csv, "r", encoding="utf-8") as f:
+                reader = csv.reader(f)
+                next(reader, None)  # saltar cabecera
+
+                self._usuarios.clear()
+
+                for fila in reader:
+                    try:
+                        nombre, edad_str, genero, avatar = fila
+                        self._usuarios.append(
+                            Usuario(nombre, int(edad_str), genero, avatar)
+                        )
+                    except:
+                        continue
+        except FileNotFoundError:
+            pass

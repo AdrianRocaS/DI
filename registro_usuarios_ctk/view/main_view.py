@@ -75,6 +75,11 @@ class MainView:
         master.config(menu=self.menubar)
         self.menu_archivo = tkinter.Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="Archivo", menu=self.menu_archivo)
+        # Opciones FASE 3
+        self.menu_archivo.add_command(label="Cargar")
+        self.menu_archivo.add_command(label="Guardar")
+        self.menu_archivo.add_separator()
+        self.menu_archivo.add_command(label="Salir", command=master.destroy)
 
     # Actualización de la lista
     def actualizar_lista_usuarios(self, usuarios, on_seleccionar_callback):
