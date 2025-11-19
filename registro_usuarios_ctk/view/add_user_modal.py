@@ -3,22 +3,28 @@ from tkinter import messagebox
 
 
 class AddUserModal(ctk.CTkToplevel):
-    def __init__(self, master, on_save_callback):
+    def __init__(self, master, on_save_callback, usuario=None):
+
         super().__init__(master)
-        self.title("Añadir Nuevo Usuario")
+        self.on_save_callback = on_save_callback
+        self.usuario = usuario
+
+        modo_edicion = usuario is not None
+
+        self.title("Editar Usuario" if modo_edicion else "Añadir Nuevo Usuario")
         self.geometry("350x480")
         self.resizable(False, False)
 
         # Modal real
         self.grab_set()
 
-        self.on_save_callback = on_save_callback
-
         # Variables
-        self.var_nombre = ctk.StringVar()
-        self.var_edad = ctk.StringVar()
-        self.var_genero = ctk.StringVar(value="Otro")
-        self.var_avatar = ctk.StringVar(value="avatar1.png")
+        self.var_nombre = ctk.StringVar(value=usuario.nombre if usuario else "")
+        self.var_edad = ctk.StringVar(value=str(usuario.edad) if usuario else "")
+        self.var_genero = ctk.StringVar(value=usuario.genero if usuario else "Otro")
+        self.var_avatar = ctk.StringVar(
+            value=usuario.avatar if usuario else "assets/avatar1.png"
+        )
 
         # NOMBRE
         ctk.CTkLabel(self, text="Nombre:").pack(pady=(15, 2))
@@ -94,5 +100,4 @@ class AddUserModal(ctk.CTkToplevel):
 
         # Crear usuario
         self.on_save_callback(nombre, int(edad), genero, avatar)
-
         self.destroy()
