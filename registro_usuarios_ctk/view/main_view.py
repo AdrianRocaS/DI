@@ -58,10 +58,13 @@ class MainView:
         # Mantener referencias
         self._image_refs = {}
 
-        # PANEL INFERIOR (Botón Salir)
+        # PANEL INFERIOR (Añadir Usuario + Salir)
         self.frame_bottom = ctk.CTkFrame(master, corner_radius=10)
         self.frame_bottom.grid(row=1, column=0, columnspan=2, sticky="ew",
                                padx=15, pady=(0, 15))
+
+        self.boton_añadir = ctk.CTkButton(self.frame_bottom, text="Añadir Usuario", width=150)
+        self.boton_añadir.pack(side="left", padx=20, pady=10)
 
         self.boton_salir = ctk.CTkButton(self.frame_bottom, text="Salir",
                                          width=100, command=master.destroy)

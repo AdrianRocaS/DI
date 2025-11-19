@@ -12,8 +12,8 @@ class AddUserView:
         self.window.grab_set()
 
         # Variables de control para los RadioButtons
-        self.genero_var = ctk.StringVar(value="Otro")  # Default a 'Otro'
-        self.avatar_var = ctk.StringVar(value="avatar3.png")  # Default a un avatar de ejemplo
+        self.genero_var = ctk.StringVar(value="Otro")
+        self.avatar_var = ctk.StringVar(value="avatar3.png")
 
         self._crear_widgets()
 

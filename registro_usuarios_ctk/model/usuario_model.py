@@ -37,3 +37,23 @@ class GestorUsuarios:
         except IndexError:
             return None
 
+    # FASE 2
+    def añadir(self, usuario: Usuario):
+        # Añade un usuario a la lista
+        self._usuarios.append(usuario)
+
+    def eliminar(self, indice: int):
+        # Elimina el usuario indicado por índice
+        try:
+            del self._usuarios[indice]
+            return True
+        except IndexError:
+            return False
+
+    def actualizar(self, indice: int, usuario: Usuario):
+        # Reemplaza al usuario en un índice por otro nuevo
+        try:
+            self._usuarios[indice] = usuario
+            return True
+        except IndexError:
+            return False
