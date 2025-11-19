@@ -89,6 +89,8 @@ class AppController:
         self.gestor.añadir(nuevo)
         self.refrescar_lista_usuarios()
 
+        self.view.mostrar_estado("Usuario creado", color="lightgreen")
+
     def editar_usuario(self, indice_visible: int):
         if not self.usuarios_visibles:
             return
@@ -104,8 +106,11 @@ class AppController:
     def guardar_usuario_editado(self, indice_real, nombre, edad, genero, avatar):
         usuario_nuevo = Usuario(nombre, edad, genero, avatar)
         self.gestor.actualizar(indice_real, usuario_nuevo)
+
         self.refrescar_lista_usuarios()
         self.view.mostrar_detalles_usuario(usuario_nuevo)
+
+        self.view.mostrar_estado("Usuario actualizado", color="lightgreen")
 
     def eliminar_usuario(self):
         # Si no hay usuario seleccionado → error controlado
@@ -131,14 +136,21 @@ class AppController:
         # Actualizar vista
         self.refrescar_lista_usuarios()
         self.view.mostrar_detalles_usuario(None)
+
+        self.view.mostrar_estado("Usuario eliminado", color="lightgreen")
+
     # FASE 3
     def guardar_usuarios(self, silencioso=False):
         try:
             ruta = Path("usuarios.csv")
             self.gestor.guardar_csv(ruta)
+
+            self.view.mostrar_estado("Guardado OK", color="lightgreen")
+
             if not silencioso:
                 messagebox.showinfo("Guardar", "Usuarios guardados correctamente.")
         except Exception as e:
+            self.view.mostrar_estado("ERROR al guardar", color="red")
             if not silencioso:
                 messagebox.showerror("Error", f"No se pudo guardar:\n{e}")
 
@@ -147,10 +159,14 @@ class AppController:
             ruta = Path("usuarios.csv")
             self.gestor.cargar_csv(ruta)
             self.refrescar_lista_usuarios()
+
+            self.view.mostrar_estado("Cargado OK", color="lightgreen")
+
+            if not silencioso:
+                messagebox.showinfo("Cargar", "Usuarios cargados correctamente.")
         except Exception as e:
+            self.view.mostrar_estado("ERROR al cargar", color="red")
             messagebox.showerror("Error", f"No se pudo cargar:\n{e}")
-        if not silencioso:
-            messagebox.showinfo("Cargar", "Usuarios cargados correctamente.")
 
     # FASE 4 (AUTOGUARDADO)
     def toggle_autoguardado(self):
@@ -162,5 +178,11 @@ class AppController:
 
     def autoguardar_tick(self):
         if self.auto_guardado_on:
-            self.guardar_usuarios(silencioso=True)
+
+            try:
+                self.guardar_usuarios(silencioso=True)
+                self.view.mostrar_estado("Auto-guardado", color="lightgreen")
+            except:
+                self.view.mostrar_estado("ERROR autoguardado", color="red")
+
         self.programar_autoguardado()

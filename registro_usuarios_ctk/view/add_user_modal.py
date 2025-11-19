@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import customtkinter as ctk
 from tkinter import messagebox
 

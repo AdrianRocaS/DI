@@ -210,14 +210,42 @@ class MainView:
         else:
             self.avatar_label.configure(text="(Sin avatar)", image=None)
 
-    # FASE 4
     def actualizar_contador(self, n):
         if n == 1:
             txt = "1 usuario visible."
         else:
             txt = f"{n} usuarios visibles."
-        self.label_contador.configure(text=txt)
+            # Guardamos el texto base para poder restaurarlo
+            self._ultimo_texto_contador = txt
+
+            self.label_contador.configure(text=txt, text_color="white")
 
     def actualizar_estado_autoguardado(self, on: bool):
         texto = "Auto-guardar (10s): ON" if on else "Auto-guardar (10s): OFF"
         self.boton_autoguardar.configure(text=texto)
+
+    # FASE 4
+    def mostrar_estado(self, texto, color="white", restaurar=True):
+        # Asegurar que existe un texto previo
+        if not hasattr(self, "_ultimo_texto_contador"):
+            self._ultimo_texto_contador = self.label_contador.cget("text")
+
+        # Muestra un mensaje temporal en la barra inferior
+        self.label_contador.configure(text=texto, text_color=color)
+
+        # Cancelar temporizadores anteriores
+        if hasattr(self, "_restore_after") and self._restore_after is not None:
+            try:
+                self.master.after_cancel(self._restore_after)
+            except:
+                pass
+
+        # Restaurar el contador después de 2s
+        if restaurar:
+            self._restore_after = self.master.after(
+                2000,
+                lambda: self.label_contador.configure(
+                    text=self._ultimo_texto_contador,
+                    text_color="white"
+                )
+            )
