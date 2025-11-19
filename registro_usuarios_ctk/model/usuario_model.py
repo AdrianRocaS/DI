@@ -1,31 +1,39 @@
+from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
 class Usuario:
-    # Aquí definimos se utilizan los datos de los usuarios
-
-    def __init__(self, nombre: str, edad: int, genero: str, avatar: str):
-        self.nombre = nombre
-        self.edad = edad
-        self.genero = genero
-        self.avatar = avatar
-
-    def __repr__(self):
-        return f"Usuario(nombre='{self.nombre}', edad={self.edad}, genero='{self.genero}')"
+    nombre: str
+    edad: int
+    genero: str
+    avatar: str = ""
 
 
 class GestorUsuarios:
-    # Clase encargada de gestionar a los usuarios
-
-    # Iniciamos la lista vacía para que cargue los datos del archivo usuarios.csv
     def __init__(self):
-        self._usuarios = []
+        # Lista privada de usuarios
+        self._usuarios: List[Usuario] = []
+        # Cargamos datos de ejemplo para fase 1
+        self._cargar_datos_de_ejemplo()
 
-    # Listamos a todos los usuarios
-    def listar(self) -> list[Usuario]:
-        return self._usuarios
 
-    # Devuelve los usuarios por orden
-    def obtener_usuario_por_indice(self, indice: int) -> Usuario | None:
+    def _cargar_datos_de_ejemplo(self):
+        # Añade 3 usuarios de ejemplo
+        self._usuarios.append(Usuario("Ana", 28, "Femenino", "assets/avatar1.png"))
+        self._usuarios.append(Usuario("Luis", 34, "Masculino", "assets/avatar2.png"))
+        self._usuarios.append(Usuario("María", 22, "Femenino", "assets/avatar3.png"))
 
+
+    def listar(self):
+        # Devuelve la lista de usuarios
+        return list(self._usuarios)
+
+
+    def obtener_por_indice(self, indice: int):
+        # Devuelve el usuario en el índice o None si índice inválido
         try:
             return self._usuarios[indice]
         except IndexError:
             return None
+

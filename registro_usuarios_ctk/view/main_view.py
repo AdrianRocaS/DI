@@ -1,157 +1,122 @@
 import customtkinter as ctk
 import tkinter
-from typing import Callable, List, TYPE_CHECKING
+from pathlib import Path
 from PIL import Image
 
-if TYPE_CHECKING:
-    from model.usuario_model import Usuario
 
-
-class MainView(ctk.CTkFrame):
-    #Esta clase crea la interfaz gráfica
-
+class MainView:
     def __init__(self, master):
-        super().__init__(master)
         self.master = master
 
-        self.grid_rowconfigure(0, weight=0)  # Fila de controles no crece
-        self.grid_rowconfigure(1, weight=1)  # Fila de contenido sí crece
-        self.grid_columnconfigure(0, weight=1)  # El frame principal crece en ancho
+        # CONFIGURACIÓN DEL GRID PRINCIPAL
+        master.grid_columnconfigure(0, weight=1)
+        master.grid_columnconfigure(1, weight=2)
+        master.grid_rowconfigure(0, weight=1)
+        master.grid_rowconfigure(1, weight=0)
 
-        # Atributo para mantener la imagen cargada y evitar que sea eliminada por GC
-        self._current_avatar = None
+        # PANEL IZQUIERDO (Usuarios)
+        self.frame_left = ctk.CTkFrame(master, corner_radius=10)
+        self.frame_left.grid(row=0, column=0, sticky="nsew", padx=15, pady=15)
 
-        self._crear_menu_bar()
-        self._crear_barra_controles()
-        self._crear_widgets_contenido()  # Contiene la lista y los detalles
+        # Título
+        self.label_usuarios = ctk.CTkLabel(
+            self.frame_left, text="Usuarios", font=("Arial", 20, "bold")
+        )
+        self.label_usuarios.pack(pady=(10, 5))
 
-    def _crear_menu_bar(self):
+        # Scrollable frame
+        self.lista_scroll = ctk.CTkScrollableFrame(self.frame_left)
+        self.lista_scroll.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # Crear barra de Archivo y Ayuda
-        self.menubar = tkinter.Menu(self.master)
-        self.master.config(menu=self.menubar)
+        # PANEL DERECHO (Detalles)
+        self.frame_right = ctk.CTkFrame(master, corner_radius=10)
+        self.frame_right.grid(row=0, column=1, sticky="nsew", padx=15, pady=15)
+
+        # Título
+        self.label_detalles = ctk.CTkLabel(
+            self.frame_right, text="Detalles del Usuario", font=("Arial", 20, "bold")
+        )
+        self.label_detalles.pack(pady=(10, 5))
+
+        # Labels de detalle
+        self.detalle_nombre = ctk.CTkLabel(self.frame_right, text="Nombre: -", anchor="w")
+        self.detalle_nombre.pack(padx=20, pady=8, anchor="nw")
+
+        self.detalle_edad = ctk.CTkLabel(self.frame_right, text="Edad: -", anchor="w")
+        self.detalle_edad.pack(padx=20, pady=8, anchor="nw")
+
+        self.detalle_genero = ctk.CTkLabel(self.frame_right, text="Género: -", anchor="w")
+        self.detalle_genero.pack(padx=20, pady=8, anchor="nw")
+
+        self.detalle_avatar = ctk.CTkLabel(self.frame_right, text="Avatar: -", anchor="w")
+        self.detalle_avatar.pack(padx=20, pady=8, anchor="nw")
+
+        # Avatar imagen
+        self.avatar_label = ctk.CTkLabel(self.frame_right, text="", image=None)
+        self.avatar_label.pack(padx=20, pady=10, anchor="nw")
+
+        # Mantener referencias
+        self._image_refs = {}
+
+        # PANEL INFERIOR (Botón Salir)
+        self.frame_bottom = ctk.CTkFrame(master, corner_radius=10)
+        self.frame_bottom.grid(row=1, column=0, columnspan=2, sticky="ew",
+                               padx=15, pady=(0, 15))
+
+        self.boton_salir = ctk.CTkButton(self.frame_bottom, text="Salir",
+                                         width=100, command=master.destroy)
+        self.boton_salir.pack(side="right", padx=20, pady=10)
+
+        # MENÚ SUPERIOR
+        self.menubar = tkinter.Menu(master)
+        master.config(menu=self.menubar)
         self.menu_archivo = tkinter.Menu(self.menubar, tearoff=0)
-        self.menu_ayuda = tkinter.Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="Archivo", menu=self.menu_archivo)
-        self.menubar.add_cascade(label="Ayuda", menu=self.menu_ayuda)
 
-    def _crear_barra_controles(self):
-        # Crear barra de controles Buscar, Género, Eliminar, Añadir
-        controles_frame = ctk.CTkFrame(self, fg_color="transparent")
-        controles_frame.grid(row=0, column=0, padx=10, pady=(10, 5), sticky="ew")
+    # Actualización de la lista
+    def actualizar_lista_usuarios(self, usuarios, on_seleccionar_callback):
 
-        # Grid para las opciones de la barra de control
-        controles_frame.grid_columnconfigure(0, weight=0)
-        controles_frame.grid_columnconfigure(1, weight=1)
-        controles_frame.grid_columnconfigure(2, weight=0)
-        controles_frame.grid_columnconfigure(3, weight=0)
-        controles_frame.grid_columnconfigure(4, weight=10)
-        controles_frame.grid_columnconfigure(5, weight=0)
-        controles_frame.grid_columnconfigure(6, weight=0)
+        for child in self.lista_scroll.winfo_children():
+            child.destroy()
 
-        # Label Buscar
-        ctk.CTkLabel(controles_frame, text="Buscar:").grid(row=0, column=0, padx=(0, 5), sticky="w")
-
-        # Entry Buscar
-        self.buscar_entry = ctk.CTkEntry(controles_frame, width=200)  # Añadimos un ancho mínimo
-        self.buscar_entry.grid(row=0, column=1, padx=(0, 5), sticky="ew")
-
-        # Label Género
-        ctk.CTkLabel(controles_frame, text="Género:").grid(row=0, column=2, padx=(0, 5), sticky="w")
-
-        # ComboBox Género
-        self.genero_combobox = ctk.CTkComboBox(controles_frame,
-                                               values=["todos", "Masculino", "Femenino", "Otro"],
-                                               width=100,
-                                               fg_color=("#3b8ed0"),
-                                               button_color=("#36719f"))
-
-        self.genero_combobox.set("todos")
-        self.genero_combobox.grid(row=0, column=3, sticky="w")
-
-
-        # 6. Botón Eliminar
-        self.eliminar_button = ctk.CTkButton(controles_frame, text="Eliminar")
-        self.eliminar_button.grid(row=0, column=5, padx=(0, 10), sticky="w")
-
-        # 7. Botón Añadir
-        self.add_user_button = ctk.CTkButton(controles_frame, text="Añadir")
-        self.add_user_button.grid(row=0, column=6, sticky="w")
-
-    def _crear_widgets_contenido(self):
-        # Lista de usuarios y Detalles del usuario seleccionado
-        contenido_frame = ctk.CTkFrame(self, fg_color="transparent")
-        contenido_frame.grid(row=1, column=0, padx=10, pady=(5, 10), sticky="nsew")
-
-        # Configuración de las 2 columnas para el contenido:
-        contenido_frame.grid_columnconfigure(0, weight=1)
-        contenido_frame.grid_columnconfigure(1, weight=1)
-        contenido_frame.grid_rowconfigure(0, weight=1)
-
-        # --- LISTA DE USUARIOS (COLUMNA 0) ---
-        self.lista_usuarios_scrollable = ctk.CTkScrollableFrame(contenido_frame)
-        self.lista_usuarios_scrollable.grid(row=0, column=0, sticky="nsew", padx=(0, 5))
-        self.lista_usuarios_scrollable.columnconfigure(0, weight=1)
-
-        # Detalles del usuario
-        detalles_frame = ctk.CTkFrame(contenido_frame)
-        detalles_frame.grid(row=0, column=1, sticky="nsew", padx=(5, 0))
-        detalles_frame.grid_columnconfigure(0, weight=1)
-
-        # Etiqueta para el Avatar
-        self.avatar_label = ctk.CTkLabel(detalles_frame, text="(avatar)")
-        # sticky="n" mantiene arriba, pady superior para bajarlo un poco
-        self.avatar_label.grid(row=0, column=0, pady=(20, 10), sticky="n")
-
-        # Mostrar los datos
-        self.nombre_label = ctk.CTkLabel(detalles_frame, text="Nombre: -", justify="left")
-        self.nombre_label.grid(row=1, column=0, sticky="w", padx=20, pady=2)
-
-        self.edad_label = ctk.CTkLabel(detalles_frame, text="Edad: -", justify="left")
-        self.edad_label.grid(row=2, column=0, sticky="w", padx=20, pady=2)
-
-        self.genero_label = ctk.CTkLabel(detalles_frame, text="Género: -", justify="left")
-        self.genero_label.grid(row=3, column=0, sticky="w", padx=20, pady=2)
-
-        # Peso para el espacio vacío para que los elementos se queden arriba
-        detalles_frame.grid_rowconfigure(4, weight=1)
-
-    def actualizar_lista_usuarios(self, usuarios: List['Usuario'], on_seleccionar_callback: Callable[[int], None]):
-
-        # Limpiar widgets antiguos de la lista
-        for widget in self.lista_usuarios_scrollable.winfo_children():
-            widget.destroy()
-
-        # Crear un botón por cada usuario
         for i, usuario in enumerate(usuarios):
-            btn = ctk.CTkButton(
-                self.lista_usuarios_scrollable,
+            boton = ctk.CTkButton(
+                self.lista_scroll,
                 text=usuario.nombre,
-                command=lambda idx=i: on_seleccionar_callback(idx),
-                fg_color="transparent",
-                text_color=("black", "white"),
-                hover_color=("gray80", "gray20")
+                command=lambda idx=i: on_seleccionar_callback(idx)
             )
-            btn.grid(row=i, column=0, sticky="ew", padx=5, pady=2)
+            boton.pack(fill="x", pady=5, padx=10)
 
-    def mostrar_detalles_usuario(self, usuario: 'Usuario', imagen: ctk.CTkImage = None):
-        # Actualiza los label con la información del usuario seleccionado
-        if usuario:
-            self.nombre_label.configure(text=f"Nombre: {usuario.nombre}")
-            self.edad_label.configure(text=f"Edad: {usuario.edad} años")
-            self.genero_label.configure(text=f"Género: {usuario.genero}")
+    # Mostrar detalles
+    def mostrar_detalles_usuario(self, usuario):
 
-            # Imagen
-            if imagen and isinstance(imagen, ctk.CTkImage):
-                self._current_avatar = imagen
-                self.avatar_label.configure(text="", image=imagen)
-            else:
-                self.avatar_label.configure(text="(avatar)", image=None)
-                self._current_avatar = None
+        if usuario is None:
+            self.detalle_nombre.configure(text="Nombre: -")
+            self.detalle_edad.configure(text="Edad: -")
+            self.detalle_genero.configure(text="Género: -")
+            self.detalle_avatar.configure(text="Avatar: -")
+            self.avatar_label.configure(image=None, text="")
+            return
+
+        self.detalle_nombre.configure(text=f"Nombre: {usuario.nombre}")
+        self.detalle_edad.configure(text=f"Edad: {usuario.edad}")
+        self.detalle_genero.configure(text=f"Género: {usuario.genero}")
+        if usuario.avatar:
+            self.detalle_avatar.configure(text="Avatar:")
         else:
-            # Estará sin completar al iniciar el programa
-            self.nombre_label.configure(text="Nombre: -")
-            self.edad_label.configure(text="Edad: -")
-            self.genero_label.configure(text="Género: -")
-            self.avatar_label.configure(text="(avatar)", image=None)
-            self._current_avatar = None
+            self.detalle_avatar.configure(text="Avatar: (Sin avatar)")
+
+        if usuario.avatar:
+            ruta = Path(usuario.avatar)
+            if ruta.exists():
+                try:
+                    img = Image.open(ruta)
+                    ctk_image = ctk.CTkImage(img, size=(120, 120))
+                    self._image_refs["avatar"] = ctk_image
+                    self.avatar_label.configure(image=ctk_image, text="")
+                except:
+                    self.avatar_label.configure(text="(Error cargando imagen)", image=None)
+            else:
+                self.avatar_label.configure(text="(Avatar no encontrado)", image=None)
+        else:
+            self.avatar_label.configure(text="(Sin avatar)", image=None)
